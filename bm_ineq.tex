@@ -14,7 +14,7 @@
 \usepackage{tikz}
 \usepackage{physics}
 \usetikzlibrary{cd}
-\setcounter{tocdepth}{1}
+\setcounter{tocdepth}{2}
 \newcommand{\Rset}{\mathbf{R}}
 \newcommand{\Nset}{\mathbf{N}}
 \newcommand{\Zset}{\mathbf{Z}}
@@ -236,7 +236,7 @@ Brunn--Minkowski不等式と関係の深い不等式にPr\'ekopa--Leindler不等
 
 \section{BMの応用：等周不等式とSobolev不等式}
 Brunn--Minkowski不等式\eqref{eq:bm2}には，凸幾何学や幾何学的測度論をはじめとした広範な応用が知られているが，ここでは等周不等式とSobolev不等式の証明を紹介する．
-
+\subsection{等周不等式}
 $K\subset\Rset^n$を凸体とする．なお，ここでは$\Rset^n$内のコンパクト凸集合で内部が空でないものを\textbf{凸体}と呼んでいる．このとき$K$の表面積の気分で
 \begin{equation}
     S(K)\coloneqq \lim_{\varepsilon\downarrow 0}\frac{\Lm^n(K+\varepsilon B)-\Lm^n(K)}{\varepsilon} \label{eq:surface_area}
@@ -296,6 +296,7 @@ $K\subset\Rset^n$を凸体とする．なお，ここでは$\Rset^n$内のコン
     \end{equation}
     が成り立つ．
 \end{rmk}
+\subsection{Sobolev不等式}
 等周不等式からSobolev不等式が従う．
 \begin{thm}[Sobolev不等式]
     $f\in W^{1,1}(\Rset^n)$ならば
