@@ -78,8 +78,6 @@
 \tableofcontents
 \section*{記号}
 \begin{itemize}
-    \item $\Nset=\qty{1,2,\ldots}$．
-    \item $\Nset_0=\Nset\cup\qty{0}$．
     \item $\Lm^n$：$\Rset^n$上のLebesgue測度．しばしば$dx=d\Lm^n,\ \abs{E}=\Lm^n(E)$．
     \item $\Hm^s\ (s\geq0)$：$\Rset^n$上の$s$次元Hausdorff測度．
     \item $B_R(x_0)\coloneqq \qty{x\in \Rset^n \mid \abs{x-x_0}<R}$.
@@ -455,7 +453,7 @@ $K\subset\Rset^n$を凸体とする．なお，ここでは$\Rset^n$内のコン
     $n\geq 1$の場合は，補題\ref{lem:proof_of_pl}と同様に帰納法で示される．
 \end{proof}
 \subsection{応用：熱方程式の解のconcavity}
-\eqref{eq:bbl}の応用先は多岐にわたる．例えば，確率・統計，幾何学的不等式，調和解析，偏微分方程式論etc., とにかく厖大な結果がある．ここでは放物型偏微分方程式の解のconcavityに関する結果を述べる．
+\eqref{eq:bbl}の応用先は多岐にわたる．例えば，確率・統計，幾何学的不等式，調和解析，偏微分方程式論etc., とにかく厖大な結果がある．ここでは積分核のmarginalで表される関数のべき凸性，およびその系として放物型偏微分方程式の解のconcavityに関して議論する．
 \begin{cor}\label{cor:marginal_concavity}
     非負値可積分関数$K=K(x,y)\colon \Rset^m\times \Rset^n\to [0,\infty)$は$\Rset^{m+n}$上$p$-concaveで$p\geq -1/n$とする．このとき
     \begin{equation}
