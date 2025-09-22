@@ -1,0 +1,706 @@
+\documentclass[a4j]{ltjsarticle}
+\usepackage{bookmark}
+
+% 数式
+\usepackage{luatexja}
+\usepackage{amsmath,amsfonts,amssymb,ascmac}
+\usepackage[abbrev]{amsrefs}
+\usepackage{bm}
+\usepackage{url}
+\usepackage{xurl}
+\usepackage{mathtools}
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathrsfs}
+\usepackage{tikz}
+\usepackage{physics}
+\usetikzlibrary{cd}
+\setcounter{tocdepth}{1}
+\newcommand{\Rset}{\mathbf{R}}
+\newcommand{\Nset}{\mathbf{N}}
+\newcommand{\Zset}{\mathbf{Z}}
+\newcommand{\Qset}{\mathbf{Q}}
+\newcommand{\Cset}{\mathbf{C}}
+\newcommand{\opensub}{\underset{\text{open}}{\subset}}
+\newcommand{\closedsub}{\underset{\t\DeclareMathOperator*{\div}{\mathrm{div}}ext{closed}}{\subset}}
+\newcommand{\transpose}[1]{\prescript{t}{}{#1}}
+\newcommand{\Om}{\Omega}
+\newcommand{\pOm}{\partial\Omega}
+\newcommand{\Ombar}{\overline{\Omega}}
+\newcommand{\ssubset}{\subset\subset}
+\newcommand{\Lm}{\mathcal{L}}
+\newcommand{\Hm}{\mathcal{H}}
+\newcommand{\mres}{\mathbin{\vrule height 1.6ex depth 0pt width
+0.13ex\vrule height 0.13ex depth 0pt width 1.3ex}}
+\newcommand{\inn}{\quad\text{in}\ }
+\newcommand{\on}{\quad \text{on}\ }
+\newcommand{\loc}{\mathrm{loc}}
+\newcommand{\pvert}[1]{\frac{\partial #1}{\partial \nu}}
+\newcommand{\snorm}[1]{\left[#1\right]}
+\newcommand{\one}{\mathrm{I}}
+\newcommand{\two}{\mathrm{I}\hspace{-1.2pt}\mathrm{I}}
+\newcommand{\three}{\mathrm{I}\hspace{-1.2pt}\mathrm{I}\hspace{-1.2pt}\mathrm{I}}
+\newcommand{\1}{\bm{1}}
+\DeclareMathOperator{\diam}{\mathrm{diam}}
+\DeclareMathOperator{\dist}{\mathrm{dist}}
+\DeclareMathOperator{\supp}{\mathrm{supp}}
+\DeclareMathOperator*{\osc}{\mathrm{osc}}
+\newcommand{\M}[4]{M_{#1}\qty(#2,#3;\,#4)}
+\let\div\relax
+\DeclareMathOperator{\div}{\mathrm{div}}
+\DeclareMathOperator*{\esssup}{\mathrm{ess}\,\sup}\DeclareMathOperator*{\essinf}{\mathrm{ess}\,\inf}
+\mathtoolsset{showonlyrefs=true}
+\numberwithin{equation}{section}
+% 画像
+\usepackage{graphicx}
+
+% 定理環境
+\usepackage{amsthm}
+\theoremstyle{definition}
+\newtheorem{thm}{定理}[section]
+\newtheorem{cor}[thm]{系}
+\newtheorem{dfn}[thm]{定義}
+\newtheorem{prop}[thm]{命題}
+\newtheorem{lem}[thm]{補題}
+\newtheorem{rmk}[thm]{注意}
+\newtheorem{eg}[thm]{例}
+
+\begin{document}
+
+\title{Brunn--Minkowski-type不等式と放物型方程式の解の凸性}
+\author{ウ}
+\date{\today}
+\maketitle
+\begin{abstract}
+    この文書は，Brunn--Minkowski，Pr\'ekopa--Leindler，そしてBorell--Brascamp--Lieb不等式の解説をするものである．これらの不等式は数学の諸分野に対して様々な応用をもち，特にGardner \cite{G}は1つめのBrunn--Minkowski不等式について次のように述べている：``In a sea of mathematics, the Brunn-Minkowski inequality appears like an octopus, tentacles reaching far and wide, its shape and color changing as it roams from one area to the next. It is quite clear that research opportunities abound.'' 
+
+    本PDFでは，主にPDEやそれに関係した関数不等式(幾何学的不等式)への応用を紹介するつもりである．主な参考文献は\cites{BL,G,ILS}である．
+\end{abstract}
+\tableofcontents
+\section*{記号}
+\begin{itemize}
+    \item $\Nset=\qty{1,2,\ldots}$．
+    \item $\Nset_0=\Nset\cup\qty{0}$．
+    \item $\Lm^n$：$\Rset^n$上のLebesgue測度．しばしば$dx=d\Lm^n,\ \abs{E}=\Lm^n(E)$．
+    \item $\Hm^s\ (s\geq0)$：$\Rset^n$上の$s$次元Hausdorff測度．
+    \item $B_R(x_0)\coloneqq \qty{x\in \Rset^n \mid \abs{x-x_0}<R}$.
+    \item $\1_E\ (E\subset \Rset^n)$：集合$E$の特性関数．
+\end{itemize}
+\section{Brunn--Minkowski不等式とPr\'ekopa--Leindler不等式}
+\subsection{Minkowski和と凸結合}
+\begin{dfn}[Minkowski和，dilation，凸結合]
+$X,\,Y\subset \Rset^n$に対してこれらの\textbf{Minkowski和}$X+Y$が
+    \begin{equation}
+        X+Y\coloneqq \qty{x+y\mid x\in X,\ y\in Y}
+    \end{equation}
+    で定義される．$r>0$に対して$X$の$r$-\textbf{dilation} $rX$とは 
+    \begin{equation}
+        rX\coloneqq \qty{rx\mid x\in X}
+    \end{equation}
+    のことである．
+    
+    $X$と$Y$の\textbf{凸結合}とは，$0<\lambda<1$を用いて
+    \begin{equation}
+        \lambda X+(1-\lambda)Y=\qty{\lambda x+(1-\lambda )y\mid x\in X,\ y\in Y}
+    \end{equation}
+    と表される集合のことである．
+\end{dfn}
+\begin{eg}
+    $\Rset^2$内で，$X$を1辺の長さ$a>0$の正方形の内部，$Y$を半径$r>0$の円板とする．このとき
+    \begin{equation}
+        \Lm^2(X+Y)=a^2+\pi r^2+4ar\geq (\Lm^2(X)^{1/2}+\Lm(Y)^{1/2})^{2}\ (=a^2+\pi r^2+2\pi^{1/2}ar).
+    \end{equation}
+\end{eg}
+\subsection{Brunn--Minkowski不等式，Pr\'ekopa--Leindler不等式}
+Brunn--Minkowski不等式の主張を述べる．
+\begin{thm}[Brunn--Minkowski不等式；first form]\label{thm:bm1}
+    $0<\lambda<1$とし，$X,\,Y\in \Rset^n$は有界可測集合で$(1-\lambda)X+\lambda Y$も可測であるようなものとする．このとき
+    \begin{equation}
+        \Lm^n((1-\lambda)X+\lambda Y)\geq \Lm^n(X)^{1-\lambda}\Lm^n(Y)^{\lambda}\label{eq:bm1}\tag{BM1}
+    \end{equation}
+    が成り立つ．
+\end{thm}
+\begin{thm}[Brunn--Minkowski不等式；standard form]\label{thm:bm2}
+    $0<\lambda<1$とし，$X,\,Y\in \Rset^n$は\underline{空でない}有界可測集合で$(1-\lambda)X+\lambda Y$も可測であるようなものとする．このとき不等式
+    \begin{equation}
+        \Lm^n((1-\lambda)X+\lambda Y)^{1/n}\geq (1-\lambda)\Lm^n(X)^{1/n}+\lambda \Lm^n(Y)^{1/n}\label{eq:bm2}\tag{BM2}
+    \end{equation}
+    が成り立つ．
+\end{thm}
+\begin{rmk}
+    $X,\,Y$が可測であっても$X+Y$が可測であるとは限らない(\cite{S},\cite{ES}を見よ)．
+\end{rmk}
+Brunn--Minkowski不等式と関係の深い不等式にPr\'ekopa--Leindler不等式がある：
+\begin{thm}[Pr\'ekopa--Leindler不等式]\label{thm:pl}
+    $0<\lambda<1$とし，$f,g,h\colon \Rset^n\to[0,\infty)$を非負値可積分関数で
+    \begin{equation}
+        h((1-\lambda)x+\lambda y)\geq f(x)^{1-\lambda}g(y)^{\lambda}\quad (\forall x,y\in \Rset^n)
+    \end{equation}
+    を満たすものとする．このとき
+    \begin{equation}
+        \int_{\Rset^n}h\,dx\geq \qty(\int_{\Rset^n}f\,dx)^{1-\lambda}\qty(\int_{\Rset^n}g\,dx)^{\lambda}\label{eq:pl}\tag{PL}
+    \end{equation}
+    が成り立つ．
+\end{thm}
+\subsection{定理\ref{thm:bm1}, \ref{thm:bm2}, \ref{thm:pl}の証明}
+不等式\eqref{eq:bm1}, \eqref{eq:bm2}, \eqref{eq:pl}を証明しよう．まずは$n=1$から．
+\begin{lem}
+    \eqref{eq:bm2}は$n=1$のとき正しい．
+\end{lem}
+\begin{proof}
+    Lebesgue測度の正則性から$X,Y$はコンパクトであるとしてよい．このとき$X+Y$もコンパクトである．必要なら平行移動して
+    \begin{equation}
+        X\subset (-\infty,0],\quad Y\subset [0,\infty)\quad \text{and}\quad X\cap Y=\qty{0}
+    \end{equation}
+    としてよく，よって$X+Y\supset X\cup Y$であるため
+    \begin{equation}
+        \Lm^1(X+Y)\geq \Lm^1(X\cup Y)=\Lm^1(X)+\Lm^1(Y)
+    \end{equation}
+    を得る．$0<\lambda<1$に対して，$X$を$(1-\lambda)X$で，$Y$を$\lambda Y$で置き換えることで所望の不等式を得る．
+\end{proof}
+\begin{lem}\label{lem:proof_of_pl}
+    $n\geq1$のとき\eqref{eq:pl}は正しい．
+\end{lem}
+\begin{proof}
+    次元$n$に関する帰納法による．まず$n=1$の場合を示す．
+
+    可積分関数$f,\,g,\,h\colon \Rset\to [0,\infty)$が
+    \begin{equation}
+        h((1-\lambda)x+\lambda y)\geq f(x)^{1-\lambda}g(x)^{\lambda}\quad (\forall x,y\in\Rset)\label{eq:pl_1_assump}
+    \end{equation}
+    を満たすと仮定する．適当な近似により$f,\,g$はコンパクト台を持つとしてよい．
+
+    \eqref{eq:pl_1_assump}より，$t\geq0$および$x,y\in\Rset$に対して
+    \begin{equation}
+        f(x)\geq t,\ g(y)\geq t\implies h((1-\lambda)x+\lambda y)\geq t
+    \end{equation}
+    つまり
+    \begin{equation}
+        \qty{h\geq t}\supset (1-\lambda)\qty{f\geq t}+\lambda \qty{g\geq t}\quad (\forall t\geq0)
+    \end{equation}
+    両辺を$[0,\infty)$上積分して\eqref{eq:bm2}を適用すれば
+    \begin{align}
+        \int_{\Rset}h\,dx=\int_{0}^{\infty}\Lm^1(\qty{h\geq t})\,dt&\geq \int_{0}^{\infty}\Lm^1((1-\lambda)\qty{f\geq t}+\lambda \qty{g\geq t})\,dt\\
+        &\geq \int_{0}^{\infty}\qty((1-\lambda)\Lm^1(\qty{f\geq t})+\lambda \Lm^1(\qty{g\geq t}))\,dt\\
+        &=(1-\lambda)\int_{\Rset}f\,dx+\lambda\int_{\Rset}g\,dx\\
+        &\geq \qty(\int_{\Rset}f\,dx)^{1-\lambda}\qty(\int_{\Rset}g\,dx)^{\lambda}
+    \end{align}
+    となり$n=1$のとき\eqref{eq:pl}が示された．
+
+    次に$n\geq 2$の場合を帰納法で示す．$s\in\Rset$に対して
+    \begin{equation}
+        h_s(z)\coloneqq h(z,s)\quad (\text{for }z\in\Rset^{n-1})
+    \end{equation}
+    とおく．$f_s,\,g_s$も同様に定義する．
+    
+    $a,b\in\Rset$を固定し$c=(1-\lambda)a+\lambda b$とおく．仮定より
+    \begin{equation}
+        h_c((1-\lambda)x+\lambda y)\geq f_a(x)^{1-\lambda}g(y)^{\lambda}\quad (\forall x,y\in\Rset^{n-1})
+    \end{equation}
+    が成り立つので，$n-1$における帰納法の仮定から
+    \begin{equation}
+        \int_{\Rset^{n-1}}h_c\,dx\geq \qty(\int_{\Rset^{n-1}}f_a\,dx)^{1-\lambda}\qty(\int_{\Rset^{n-1}}g_b\,dx)^{\lambda}
+    \end{equation}
+    が成り立つ．このことは，$s\in\Rset$に対して
+    \begin{equation}
+        H(s)\coloneqq \int_{\Rset^{n-1}}h_s\,dx,\quad F(s)\coloneqq \int_{\Rset^{n-1}}f_s\,dx,\quad G(s)\coloneqq \int_{\Rset^{n-1}}g_s\,dx
+    \end{equation}
+    とおくとき
+    \begin{equation}
+        H(\lambda a+(1-\lambda)b)\geq F(a)^{1-\lambda}G(b)^{\lambda}\quad (\forall a,b\in\Rset)
+    \end{equation}
+    が成り立つことを示している．よって$n=1$の場合の\eqref{eq:pl}より
+    \begin{equation}
+        \int_{\Rset}H\,ds\geq \qty(\int_{\Rset}F\,ds)^{1-\lambda}\qty(\int_{\Rset}G\,ds)^{\lambda}
+    \end{equation}
+    が成り立つ．よって$n$における\eqref{eq:pl}が示された．
+\end{proof}
+\begin{lem}\label{lem:pl_implies_bm1}
+    $n\geq 1$のとき，\eqref{eq:pl}を認めれば\eqref{eq:bm1}は正しい．
+\end{lem}
+\begin{proof}
+    $f=\1_{X},\ g=\1_{Y},\ h=\1_{(1-\lambda)X+\lambda Y}$とおけばよい．
+\end{proof}
+\begin{lem}\label{lem:bm1_implies_bm2}
+    \eqref{eq:bm1}を認めれば\eqref{eq:bm2}は正しい．
+\end{lem}
+\begin{proof}
+    $X$または$Y$が零集合なら自明なので，$\Lm^n(X)>0,\ \Lm^n(Y)>0$としてよい．適当にスケーリングして$\Lm^n(X+Y)^{1/n}\geq \Lm^n(X)^{1/n}+\Lm^n(Y)^{1/n}$を示せばよい．
+    \begin{equation}
+        \lambda'\coloneqq \frac{\Lm^n(Y)^{1/n}}{\Lm^n(X)^{1/n}+\Lm^n(Y)^{1/n}},
+    \end{equation}
+    \begin{equation}
+        X'\coloneqq \Lm^n(X)^{-1/n}X,\quad Y'\coloneqq \Lm^n(Y)^{-1/n}Y
+    \end{equation}
+    とおくと\eqref{eq:bm1}より$\Lm^n((1-\lambda')X'+\lambda'Y')\geq1$を得る．左辺を変形すると\eqref{eq:bm2}を得る．
+\end{proof}
+
+\section{BMの応用：等周不等式とSobolev不等式}
+Brunn--Minkowski不等式\eqref{eq:bm2}には，凸幾何学や幾何学的測度論をはじめとした広範な応用が知られているが，ここでは等周不等式とSobolev不等式の証明を紹介する．
+
+$K\subset\Rset^n$を凸体とする．なお，ここでは$\Rset^n$内のコンパクト凸集合で内部が空でないものを\textbf{凸体}と呼んでいる．このとき$K$の表面積の気分で
+\begin{equation}
+    S(K)\coloneqq \lim_{\varepsilon\downarrow 0}\frac{\Lm^n(K+\varepsilon B)-\Lm^n(K)}{\varepsilon} \label{eq:surface_area}
+\end{equation}
+と定義する．なおここで$B=B_{1}(0)$は単位球である．
+\begin{rmk}
+    \begin{itemize}
+        \item 混合体積に対するMinkowskiの定理より，$\Lm^n(K+\varepsilon B)$は$\varepsilon$に関する$n$次式となる．特に\eqref{eq:surface_area}式の極限は収束する．
+        \item 更に境界$\partial K$が十分滑らかならば($C^1$級なら十分)，$S(K)=\Hm^{n-1}(\partial K)$が成り立つ．余面積公式(coarea formula)による．
+    \end{itemize}
+\end{rmk}
+\begin{thm}[凸体に対する等周不等式]
+    $K\subset\Rset^n$が凸体ならば
+    \begin{equation}
+        \frac{\Lm^n(K)^{(n-1)/n}}{S(K)}\leq \frac{\Lm^n(B)^{(n-1)/n}}{S(B)}=n^{-1}\omega_n^{-1/n}\label{eq:isop_ineq_conv}\tag{IP1}
+    \end{equation}
+    が成り立つ．なお$\omega_n=\Lm^n(B)=\pi^{n/2}/\varGamma\qty(\frac{n}{2}+1)$とおいた．$S(B)=n\omega_n$であることから右辺が上のように計算される．
+\end{thm}
+\begin{proof}
+    まず，$\varepsilon=t/(1-t)$とおくと$S(K)$の定義から
+    \begin{align}
+        S(K)&=\lim_{t\downarrow0}\frac{\Lm^n((1-t)K+tB)-(1-t)^n\Lm^n(K)}{(1-t)^{n-1}t}\\
+        &=\lim_{t\downarrow0}\frac{\Lm^n((1-t)K+tB)-\Lm^n(K)}{(1-t)^{n-1}t}+\lim_{t\downarrow0}\frac{(1-(1-t)^n)\Lm^n(K)}{(1-t)^{n-1}t}\\
+        &=\lim_{t\downarrow 0}\frac{\Lm^n((1-t)K+tB)-\Lm^n(K)}{t}+n\Lm^n(K)
+    \end{align}
+    である．そこで
+    \begin{equation}
+        f(t)=\Lm^n((1-t)K+tB)^{1/n}\quad (0\leq t\leq 1)
+    \end{equation}
+    とおくと\eqref{eq:bm2}より$f$はconcaveである．特に$f'(0)\geq f(1)-f(0)$が成り立つ．最初に計算した式から$f'(0)$を計算すると
+    \begin{equation}
+        f'(0)=\frac{\Lm^n(K)^{(n-1)/n}}{n}(S(K)-n\Lm^n(K))\geq \Lm^n(B)^{1/n}-\Lm^n(K)^{1/n}
+    \end{equation}
+    を得る．これを適切に変形すると所望の不等式を得る．
+\end{proof}
+\begin{rmk}[等号成立条件について]
+    等周不等式\eqref{eq:isop_ineq_conv}の等号成立条件について考える．
+    
+    まず\eqref{eq:bm2}の等号成立条件は，\underline{$X,\,Y$が測度零の集合を除いて相似な凸体であること}だと知られている．
+
+    このことを認めて，\eqref{eq:isop_ineq_conv}において等号が成り立つと仮定すると，上の証明の記号において$f'(0)=f(1)-f(0)$が成り立つ．$f$はconcaveなので，任意の$t\in(0,1]$に対して
+    \begin{equation}
+        \frac{f(t)-f(0)}{t}=f(1)-f(0)
+    \end{equation}
+    つまりBMの等号が成り立つ．よって$K$と$B$は相似である．
+
+    以上より，\eqref{eq:isop_ineq_conv}で等号が成り立つのは\underline{$K$が球である}場合に限る．
+\end{rmk}
+\begin{rmk}[$C^1$級境界を持つコンパクト領域に対する等周不等式]
+    $K\subset \Rset^n$がコンパクト領域で境界$\partial K$が$C^1$級ならば，極限
+    \begin{equation}
+        S(K)=\lim_{\varepsilon\downarrow0}\frac{\Lm^n(K+\varepsilon B)-\Lm^n(K)}{\varepsilon}
+    \end{equation}
+    が存在し，$S(K)=\Hm^{n-1}(\partial K)$が成り立つ．余面積公式による(例えばEvans--Gariepyの本\cite{EG}を参照)．したがって同様の議論により
+    \begin{equation}
+        \frac{\Lm^n(K)^{(n-1)/n}}{\Hm^{n-1}(\partial K)}\leq \frac{\Lm^n(B)^{(n-1)/n}}{\Hm^{n-1}(\partial B)}=n^{-1}\omega_n^{-1/n}\label{eq:isop_ineq_c1}\tag{IP2}
+    \end{equation}
+    が成り立つ．
+\end{rmk}
+等周不等式からSobolev不等式が従う．
+\begin{thm}[Sobolev不等式]
+    $f\in W^{1,1}(\Rset^n)$ならば
+    \begin{equation}
+        \qty(\int_{\Rset^n}\abs{f}^{n/(n-1)}\,dx)^{(n-1)/n}\leq n^{-1}\omega_n^{-1/n}\int_{\Rset^n}\abs{Df}\,dx
+    \end{equation}
+    が成り立つ．
+\end{thm}
+\begin{proof}
+    $f\in C^\infty_c(\Rset^n),\ f\geq0$としてよい．layer-cake representationより
+    \begin{align}
+        \int_{\Rset^n}f^{n/(n-1)}\,dx&=\frac{n}{n-1}\int_{0}^{\infty}t^{n/(n-1)}\Lm^n(\qty{f\geq t})\,dt\\
+        &=\frac{n}{n-1}\int_{0}^{\infty}\Lm^n(\qty{f\geq t})^{(n-1)/n}\qty[t\Lm^n(\qty{f\geq t})^{(n-1)/n}]^{1/(n-1)}dt\\
+        &\leq \frac{n}{n-1}\int_{0}^{\infty}\Lm^n(\qty{f\geq t})^{(n-1)/n}\qty[\int_{0}^{t}\Lm^n(\qty{f\geq s})^{(n-1)/n}\,ds]^{1/(n-1)}dt
+    \end{align}
+    である．ここで$F(t)=\int_{0}^{t}\Lm^n(\qty{f\geq s})^{(n-1)/n}\,ds$とおく．Sardの定理よりほとんどすべての$t>0$に対して$\qty{f=t}$は$C^1$曲面であることに注意して\eqref{eq:isop_ineq_c1}を用いると
+    \begin{align}
+        \qty(\int_{\Rset^n}f^{n/(n-1)}\,dx)^{(n-1)/n}&\leq \qty[\frac{n}{n-1}\int_{0}^{\infty}F'(t)F(t)^{1/(n-1)}\,dt]^{(n-1)/n}\\
+        &=F(\infty)=\int_{0}^{\infty}\Lm^n(\qty{f\geq t})^{(n-1)/n}\,dt\\
+        &\leq \int_{0}^{\infty}n^{-1}\omega_n^{-1/n}\Hm^{n-1}(\qty{f=t})\,dt\quad\quad (\text{by \eqref{eq:isop_ineq_c1}})\\
+        &=n^{-1}\omega_n^{-1/n}\int_{\Rset^n}\abs{Df}\,dx 
+    \end{align}
+    を得る．なお最後の変形で余面積公式(\cite{EG}*{Theorem 3.13})を用いた．
+\end{proof}
+
+\section{関数の\texorpdfstring{$p$}{TEXT}-concavityとBorell--Brascamp--Lieb不等式}
+本節ではPr\'ekopa--Leidler不等式\eqref{eq:pl}の拡張であるBorell--Brascamp--Lieb不等式を紹介する．
+\subsection{\texorpdfstring{$p$}{TEXT}-concave関数}
+\begin{dfn}
+    $-\infty\leq p\leq \infty,\ 0<\lambda<1,\ a,\,b\geq0$に対して非負実数$\M{p}{a}{b}{\lambda}$を
+    \begin{align}
+        \M{p}{a}{b}{\lambda}&\coloneqq 0\quad\quad(\forall p\in [-\infty,\infty]) \quad\quad \text{if $ab=0$},\\
+        \M{p}{a}{b}{\lambda}&\coloneqq \begin{cases}
+            [(1-\lambda)a^p+\lambda b^p]^{1/p} & (p\in \Rset\setminus\qty{0})\\
+            a^{1-\lambda}b^\lambda & (p=0)\\
+            \max\qty{a,b} & (p=\infty)\\
+            \min\qty{a,b} & (p=-\infty)
+        \end{cases}\quad\quad \text{if $ab>0$}
+    \end{align}
+    と定義する．
+\end{dfn}
+\begin{dfn}
+    非負値関数$f\colon \Rset^n\to[0,\infty)$が$\bm{p}$\textbf{-concave}であるとは
+    \begin{equation}
+        f((1-\lambda)x+\lambda y)\geq \M{p}{f(x)}{f(y)}{\lambda}\quad (\forall x,\,y\in\Rset^n,\ \lambda\in(0,1))
+    \end{equation}
+    が成り立つことをいう．
+\end{dfn}
+\begin{rmk}
+    \begin{itemize}
+        \item $f$が$p$-concaveであることと，集合$P_f\coloneqq\qty{x\in\Rset^n\mid f(x)>0}$が凸でありかつ
+        \begin{equation}
+            \begin{cases}
+                \text{$f$は$P_f$上定数} & (\text{if $p=\infty$})\\
+                \text{$f^p$は$P_f$上concave} & (\text{if $p\in(0,\infty)$})\\
+                \text{$\log f$は$P_f$上concave} & (\text{if $p=0$})\\
+                \text{$f^p$は$P_f$上concave} & (\text{if $p\in(-\infty,0)$})\\
+                \text{任意の$\alpha>0$に対して集合$\qty{f>\alpha}$は凸} & (\text{if $p=-\infty$})\\
+            \end{cases}
+        \end{equation}
+        であることは同値である．
+
+        \item $1$-concaveを単にconcaveといい，$-1$-concaveのことをconvexという．零等位集合$\qty{f=0}$を無視しているので通常のconcavityとは若干定義が異なることに注意せよ．
+        \item $0$-concaveのことをlog-concaveという．$-\infty$-concaveのことをquasi-concaveという．
+        \item Jensenの不等式より
+        \begin{equation}
+            -\infty\leq p<q\leq\infty\implies \M{p}{a}{b}{\lambda}\leq \M{q}{a}{b}{\lambda}
+        \end{equation}
+        である．
+        \item とくに，$p<q$のとき，$q$-concaveならば$p$-concaveである．
+    \end{itemize}
+\end{rmk}
+\subsection{Borell--Brascamp--Lieb不等式}
+次の初等的な不等式から始めよう．
+\begin{lem}\label{lem:ave_ineq}
+    $0<\lambda<1,\ p,\,q\in[-\infty,\infty],\ p+q\geq0$とする．このとき$a,\,b,\,c,\,d\geq0$に対して
+    \begin{equation}
+        \M{p}{a}{b}{\lambda}\M{q}{c}{d}{\lambda}\geq \M{s}{ac}{bd}{\lambda}
+    \end{equation}
+    が成り立つ．ここで
+    \begin{equation}
+        s=\begin{cases}
+            pq/(p+q) & (\text{if $p$ or $q\neq0$})\\
+            0 & (\text{if } p=q=0)
+        \end{cases}
+    \end{equation}
+    である．
+\end{lem}
+\begin{proof}
+    次の一般化されたH\"olderの不等式：$0<\lambda<1,\ p_1,\,p_2,\,r>0,\ p_1^{-1}+p_2^{-1}=1$と$a,\,b,\,c,\,d\geq0$に対して
+    \begin{equation}
+        \M{r}{ac}{bd}{\lambda}\leq \M{rp_1}{a}{b}{\lambda}\M{rp_2}{c}{d}{\lambda}
+    \end{equation}
+    が成り立つ(\cite{HLP}を見よ)．更に$r<0$ならば反対向きの不等号が成り立つ．これを用いよ．
+\end{proof}
+\begin{thm}[Borell--Brascamp--Lieb不等式]\label{thm:bbl}
+    $0<\lambda<1,\ -1/n\leq p\leq \infty$とする．非負可測関数$f,\,g,\,h\colon \Rset^n\to[0,\infty)$が
+    \begin{equation}
+        h((1-\lambda)x+\lambda y)\geq \M{p}{f(x)}{g(y)}{\lambda}\quad (\forall x,y\in\Rset^n)
+    \end{equation}
+    を満たしていると仮定する．このとき不等式
+    \begin{equation}
+        \norm{h}_1\geq \M{p/(1+np)}{\norm{f}_1}{\norm{g}_1}{\lambda}\label{eq:bbl}\tag{BBL}
+    \end{equation}    
+    が成り立つ．ただし，$p=-1/n$のとき$p/(1+np)=-\infty$，$p=\pm\infty$のとき$p/(1+np)=1/n$と解釈する．
+\end{thm}
+\begin{rmk}
+    $p=0$とすれば\eqref{eq:pl}が得られる．
+\end{rmk}
+以下定理\ref{thm:bbl}を証明する．まずは$n=1$の場合に関する次の補題を示す．
+\begin{lem}\label{lem:bbl_1}
+    $f,\,g,\,h\colon \Rset\to [0,\infty]$を非負値可測関数，$0<\lambda<1$が
+    \begin{equation}
+        h((1-\lambda)x+\lambda y)\geq \min\qty{f(x),\,f(y)}\ (=\M{-\infty}{f(x)}{f(y)}{\lambda})\quad (\forall x,y\in\Rset^n)\label{eq:bbl_assump}
+    \end{equation}
+    を満たし，更に$\norm{f}_{\infty}=\norm{g}_{\infty}\eqqcolon m$と仮定する．このとき
+    \begin{equation}
+        \norm{h}_1\geq (1-\lambda)\norm{f}_1+\lambda\norm{g}_1
+    \end{equation}
+    が成り立つ．
+\end{lem}
+\begin{proof}
+    $f,\,g$はコンパクト台を持つと仮定してよい．仮定より$t\geq0$に対して包含$\qty{h\geq t}\supset (1-\lambda)\qty{f\geq t}+\lambda\qty{g\geq t}$が成り立つので，$0<t<m$に対して\eqref{eq:bm2}より
+    \begin{equation}
+        \Lm^1(\qty{h\geq t})\geq (1-\lambda)\Lm^1(\qty{f\geq t})+\lambda \Lm^1(\qty{g\geq t})
+    \end{equation}
+    が成り立つ．両辺を$(0,m)$上積分して所望の不等式を得る．
+\end{proof}
+\begin{proof}[Proof of \textup{定理\ref{thm:bbl}}]
+    $n$に関する帰納法による．まず$n=1$の場合を考える．$\norm{f}_1,\,\norm{g}_1>0$かつ$f,\,g$は有界としてよい．
+    \begin{equation}
+        F(x)\coloneqq \frac{f(x)}{\norm{f}_{\infty}},\quad G(x)\coloneqq \frac{g(x)}{\norm{g}_{\infty}}
+    \end{equation}
+    とおく．仮定\eqref{eq:bbl_assump}より
+    \begin{align}
+        h((1-\lambda)x+\lambda y)&\geq \M{p}{\norm{f}_{\infty}F(x)}{\norm{g}_{\infty}G(y)}{\lambda}\\
+        &\geq \M{p}{\norm{f}_{\infty}}{\norm{g}_{\infty}}{\lambda}\M{p}{F(x)}{G(y)}{\theta}
+    \end{align}
+    が成り立つ．ここで$\theta\in(0,1)$は
+    \begin{equation}
+        \theta=\begin{cases}
+            \lambda\norm{g}_{\infty}^p/((1-\lambda)\norm{f}_{\infty}^p+\lambda \norm{g}_{\infty}^p) & (\text{if $p\neq 0,\infty$})\\
+            \lambda & (\text{if $p=0$ or $\infty$})
+        \end{cases}
+    \end{equation}
+    である．よって
+    \begin{equation}
+        h((1-\lambda)x+\lambda y)\geq \M{p}{\norm{f}_{\infty}}{\norm{g}_{\infty}}{\lambda}\min\qty{F(x),\,G(y)}
+    \end{equation}
+    が成り立つ．補題\ref{lem:bbl_1}より
+    \begin{equation}
+        \norm{h}_{1}\geq \M{p}{\norm{f}_{\infty}}{\norm{g}_{\infty}}{\lambda}\M{1}{\norm{F}_{1}}{\norm{G}_1}{\lambda}\geq \M{p/(1+p)}{\norm{f}_{1}}{\norm{g}_{1}}{\lambda} 
+    \end{equation}
+    を得る．なお最後の不等式で補題\ref{lem:ave_ineq}を用いた．
+
+    $n\geq 1$の場合は，補題\ref{lem:proof_of_pl}と同様に帰納法で示される．
+\end{proof}
+\subsection{応用：熱方程式の解のconcavity}
+\eqref{eq:bbl}の応用先は多岐にわたる．例えば，確率・統計，幾何学的不等式，調和解析，偏微分方程式論etc., とにかく厖大な結果がある．ここでは放物型偏微分方程式の解のconcavityに関する結果を述べる．
+\begin{cor}\label{cor:marginal_concavity}
+    非負値可積分関数$K=K(x,y)\colon \Rset^m\times \Rset^n\to [0,\infty)$は$\Rset^{m+n}$上$p$-concaveで$p\geq -1/n$とする．このとき
+    \begin{equation}
+        F(x)\coloneqq \int_{\Rset^n}K(x,y)\,dy\quad (x\in\Rset^m)
+    \end{equation}
+    で定まる関数$F$は$\Rset^m$上$p/(1+np)$-concaveである．
+\end{cor}
+\begin{proof}
+    $x_0,\,x_1\in \Rset^m$を固定し，$x_\lambda=(1-\lambda)x_0+\lambda x_1$とおき，$i\in \qty{0,1,\lambda}$に対して
+    \begin{equation}
+        k_i(y)\coloneqq K(x_i,y)\quad (y\in\Rset^n)
+    \end{equation}
+    とおく．仮定より
+    \begin{equation}
+        k_{\lambda}((1-\lambda)y_0+\lambda y_1)\geq \M{p}{k_0(y_0)}{k_1(y_1)}{\lambda}\quad (\forall y_0,\,y_1\in\Rset^n)
+    \end{equation}
+    が成り立つ．よって\eqref{eq:bbl}より
+    \begin{equation}
+        \norm{k_\lambda}_{1}\geq \M{p/(1+np)}{\norm{k_0}_1}{\norm{k_1}_{1}}{\lambda}
+    \end{equation}
+    を得る．つまり
+    \begin{equation}
+        F((1-\lambda)x_0+\lambda x_1)\geq \M{p/(1+np)}{F(x_0)}{F(x_1)}{\lambda}
+    \end{equation}
+    を得る．
+\end{proof}
+\begin{cor}\label{cor:conv_concavity}
+    $p_1,\,p_2$は$p_1+p_2\geq0$であり，
+    \begin{equation}
+        p\coloneqq \begin{cases}
+            p_1p_2/(p_1+p_2) & (\text{if $p_1$ or $p_2=0$})\\
+            0 & (\text{if $p_1=p_2=0$})
+        \end{cases}
+    \end{equation}
+    とおいたとき$p\geq -1/n$だと仮定する．
+
+    $i=1,\,2$に対して非負値可積分関数$f_i\colon \Rset^n\to[0,\infty)$は$p_i$-concaveだとする．このとき$f_1\ast f_2$は$p/(1+np)$-concaveである．
+\end{cor}
+\begin{proof}
+    $f(x,y)=f_1(x-y)f_2(y)\ ((x,y)\in \Rset^n\times\Rset^n)$は$p$-concaveである．実際
+    \begin{align}
+        f((1-\lambda)x_0+\lambda x_1,\,(1-\lambda)y_0+\lambda y_1)&=f_1((1-\lambda)(x_0-y_0)+\lambda(x_1-y_1))f_2((1-\lambda)y_0+\lambda y_1)\\
+        &\geq \M{p_1}{f_1(x_0-y_0)}{f_1(x_1-y_1)}{\lambda}\M{p_2}{f_2(y_0)}{f_2(y_1)}{\lambda}\\
+        &\geq \M{p}{f(x_0,y_0)}{f(x_1,y_1)}{\lambda}
+    \end{align}
+    である(補題\ref{lem:ave_ineq}を用いた)．系\ref{cor:marginal_concavity}より結論が得られる．
+\end{proof}
+\begin{cor}\label{cor:heat_concavity}
+    非負値可積分関数$f\colon \Rset^n\to[0,\infty)$がlog-concaveならば，熱方程式の初期値問題
+    \begin{equation}
+        \left\{
+        \begin{array}{rl}
+            \partial_{t}u-\Delta u=0 & (x,t)\in\Rset^n\times (0,\infty)\\
+            u(\,\cdot\,,0)=f & x\in\Rset^n
+        \end{array}
+        \right.
+    \end{equation}
+    の解$u$について，$u(\,\cdot\,,t)$は任意の$t>0$に対してlog-concaveである．
+\end{cor}
+\begin{rmk}
+    系\ref{cor:heat_concavity}の証明は，熱方程式の解がGauss核との畳み込みで書けるという全空間特有の性質に依存するものであり，この方法をそのまま有界領域などに適用することはできない．
+
+    Korevaar \cite{K}は，concavity maximium principleと呼ばれる新しい手法を確立することでDirichlet境界条件下において同様のlog-concavity保存の結果を得た．
+\end{rmk}
+\begin{rmk}
+    Brascamp--Lieb \cite{BL}は，他にも\eqref{eq:pl} (を少しだけ改良したもの)を巧みに用いることで，ポテンシャル$V$がconvexであるときにDirichlet境界条件を課した$\partial_t-\frac{1}{2}\Delta +V$の基本解がlog-concaveであることを示した．
+\end{rmk}
+\section{BBL不等式に対するPDE的アプローチ}
+系\ref{cor:heat_concavity}は，熱方程式の解のlog-concavityが保存されるということを\eqref{eq:pl}を用いて示したものである．
+
+Ishige--Liu--Salani \cite{ILS}は，逆に熱方程式の解の性質を用いて\eqref{eq:pl}を示した．ここでは，その証明の概略を紹介する．
+
+彼らは，放物型偏微分方程式の解析を駆使して系\ref{cor:heat_concavity}の拡張である次の定理を証明した．
+\begin{thm}\label{thm:conc_preserve}
+    $0<\lambda<1$とし，$i\in\qty{0,1,\lambda}$に対して$f_i\in L^1(\Rset^n)\cap L^\infty(\Rset^n)\cap C(\Rset^n),\ f_i\geq0$であり，
+    \begin{equation}
+        f_\lambda((1-\lambda)y+\lambda z)\geq \M{0}{f_0(y)}{f_1(z)}{\lambda}\ (=f_0(y)^{1-\lambda}f_1(z)^{\lambda})\quad (\forall y,\,z\in\Rset^n)\label{eq:conc_preserve_assump}
+    \end{equation}
+    だと仮定する．$i\in\qty{0,1,\lambda}$に対して$u_i$を
+    \begin{equation}
+        \left\{
+        \begin{array}{rl}
+            \partial_{t}u_i-\Delta u_i=0 & (x,t)\in\Rset^n\times (0,\infty)\\
+            u_i(\,\cdot\,,0)=f_i & x\in\Rset^n
+        \end{array}
+        \right.
+    \end{equation}
+    の解とする．このとき任意の$t>0$に対して
+    \begin{equation}
+        u_\lambda((1-\lambda)y+\lambda z)\geq \M{0}{u_0(t,y)}{u_1(t,z)}{\lambda}\ (=u_{0}(y,t)^{1-\lambda}u_{1}(z,t)^{\lambda})\quad (\forall y,z\in\Rset^n)
+    \end{equation}
+    が成り立つ．
+\end{thm}
+\begin{proof}[\textup{証明の概略}]
+    定理\ref{thm:conc_preserve}の証明の概略は次の通り(\textcolor{red}{筆者が詳細を理解できたら完全な証明に書き換えるつもりである})：$u_0$と$u_1$の空間に関するMinkowski convolutionを
+    \begin{equation}
+        \overline{u}_{\lambda}(x,t)\coloneqq \sup\qty{u_{0}(y,t)^{1-\lambda}u_1(z,t)^{\lambda}\mid y,z\in\Rset^n\ \text{with}\ (1-\lambda)y+\lambda z=x}
+    \end{equation}
+    で定義する．$\overline{u}_{\lambda}$が熱方程式の\underline{粘性劣解}であることを示す(このステップが本質的である)．すると粘性解に対する比較原理から$\overline{u}_{\lambda}\leq u_{\lambda}$が従う．これが求める結果である．
+\end{proof}
+さて，$f_1,\,f_2,\,f_\lambda$を定理\ref{thm:conc_preserve}の仮定を満たすものとする．Lebesgueの優収束定理から
+\begin{equation}
+    \lim_{t\to\infty}(4\pi t)^{n/2}u_i(x,t)=\int_{\Rset^n}f_i(y)\,dy\quad (\forall x\in\Rset^n,\ i\in\qty{0,1,\lambda})
+\end{equation}
+である．定理\ref{thm:conc_preserve}より勝手な$x\in\Rset^n$に対して
+\begin{equation}
+    (4\pi t)^{n/2}u_{\lambda}(x,t)\geq [(4\pi t)^{n/2}u_0(x,t)]^{1-\lambda}[(4\pi t)^{n/2} u_1(x,t)]^{\lambda}
+\end{equation}
+が成り立つので，$t\to\infty$として
+\begin{equation}
+    \int_{\Rset^n}f_\lambda\,dx\geq \qty(\int_{\Rset^n}f_0\,dx)^{1-\lambda}\qty(\int_{\Rset^n}f_1\,dx)^{\lambda}
+\end{equation}
+を得る．これは\eqref{eq:pl}に他ならない．
+
+なお，定理\ref{thm:conc_preserve}には初期値に連続かつ有界な関数という余分な仮定が付いてはいるものの，適当な近似を用いた議論により完全に定理\ref{thm:pl}が復元することができる．
+\begin{rmk}
+    上では簡単のため\eqref{eq:pl} ($\alpha=0$の場合)のみを扱ったが，\cite{ILS}では同様の議論により$-1/2<\alpha<0$に対する結果を得ている．その際には熱方程式の代わりに非線形放物型方程式
+    \begin{equation}
+        \partial_t u-\frac{\Delta\qty(u^m)}{m}=0,\quad \text{where}\quad m=2\alpha+1\label{eq:pme}
+    \end{equation}
+    を考え，定理\ref{thm:conc_preserve}と同様の主張を証明することで$\alpha$に対する\eqref{eq:bbl}を導出している．
+
+    なお，方程式\eqref{eq:pme}は$0<m<1$のときfast diffusion方程式というが，有限時間で解が消滅するextinctionと呼ばれる現象が起こるため$m=1$ (つまり$\alpha=0$)の場合と比べてより繊細な解析が必要となる．
+\end{rmk}
+
+\begin{bibdiv}
+    \begin{biblist}
+        \bib{BCCT}{article}{
+   author={Bennett, Jonathan},
+   author={Carbery, Anthony},
+   author={Christ, Michael},
+   author={Tao, Terence},
+   title={The Brascamp-Lieb inequalities: finiteness, structure and
+   extremals},
+   journal={Geom. Funct. Anal.},
+   volume={17},
+   date={2008},
+   number={5},
+   pages={1343--1415},
+   issn={1016-443X},
+   review={\MR{2377493}},
+   doi={10.1007/s00039-007-0619-6},
+}
+\bib{BL}{article}{
+   author={Brascamp, Herm Jan},
+   author={Lieb, Elliott H.},
+   title={On extensions of the Brunn-Minkowski and Pr\'ekopa-Leindler
+   theorems, including inequalities for log concave functions, and with an
+   application to the diffusion equation},
+   journal={J. Functional Analysis},
+   volume={22},
+   date={1976},
+   number={4},
+   pages={366--389},
+   issn={0022-1236},
+   review={\MR{0450480}},
+   doi={10.1016/0022-1236(76)90004-5},
+}
+\bib{ES}{article}{
+   author={Erd\H os, P.},
+   author={Stone, A. H.},
+   title={On the sum of two Borel sets},
+   journal={Proc. Amer. Math. Soc.},
+   volume={25},
+   date={1970},
+   pages={304--306},
+   issn={0002-9939},
+   review={\MR{0260958}},
+   doi={10.2307/2037209},
+}
+\bib{EG}{book}{
+   author={Evans, Lawrence C.},
+   author={Gariepy, Ronald F.},
+   title={Measure theory and fine properties of functions},
+   series={Textbooks in Mathematics},
+   edition={2},
+   publisher={CRC Press, Boca Raton, FL},
+   date={2025},
+   pages={xi+327},
+   isbn={978-1-032-94644-3},
+   isbn={978-1-003-58300-4},
+   isbn={978-1-032-95055-6},
+   review={\MR{4907811}},
+}
+    \bib{G}{article}{
+   author={Gardner, R. J.},
+   title={The Brunn--Minkowski inequality},
+   journal={Bull. Amer. Math. Soc. (N.S.)},
+   volume={39},
+   date={2002},
+   number={3},
+   pages={355--405},
+   issn={0273-0979},
+   review={\MR{1898210}},
+   doi={10.1090/S0273-0979-02-00941-2},
+}
+\bib{HLP}{book}{
+   author={Hardy, G. H.},
+   author={Littlewood, J. E.},
+   author={P\'olya, G.},
+   title={Inequalities},
+   series={Cambridge Mathematical Library},
+   note={Reprint of the 1952 edition},
+   publisher={Cambridge University Press, Cambridge},
+   date={1988},
+   pages={xii+324},
+   isbn={0-521-35880-9},
+   review={\MR{0944909}},
+}
+\bib{ILS}{article}{
+   author={Ishige, Kazuhiro},
+   author={Liu, Qing},
+   author={Salani, Paolo},
+   title={A parabolic PDE-based approach to Borell--Brascamp--Lieb
+   inequality},
+   journal={Math. Ann.},
+   volume={392},
+   date={2025},
+   number={4},
+   pages={4891--4937},
+   issn={0025-5831},
+   review={\MR{4958493}},
+   doi={10.1007/s00208-025-03206-6},
+}
+\bib{K}{article}{
+   author={Korevaar, Nicholas J.},
+   title={Convex solutions to nonlinear elliptic and parabolic boundary
+   value problems},
+   journal={Indiana Univ. Math. J.},
+   volume={32},
+   date={1983},
+   number={4},
+   pages={603--614},
+   issn={0022-2518},
+   review={\MR{0703287}},
+   doi={10.1512/iumj.1983.32.32042},
+}
+\bib{S}{article}{
+    author={Sierpi\'nski, Wacław Franciszek},
+    title={Sur la question de la measulabilit\'e de la base de M. Hamel},
+    journal={Fund. Math.},
+    volume={1},
+    date={1920},
+    pages={105--111},
+}
+
+    \end{biblist}
+\end{bibdiv}
+\end{document}
