@@ -1,6 +1,11 @@
 \documentclass[a4j]{ltjsarticle}
 \usepackage{bookmark}
-
+\hypersetup{
+	colorlinks=true,
+	citecolor=blue,
+	linkcolor=blue,
+	urlcolor=blue,
+}
 % 数式
 \usepackage{luatexja}
 \usepackage{amsmath,amsfonts,amssymb,ascmac}
@@ -578,7 +583,7 @@ Ishige--Liu--Salani \cite{ILS}は，逆に熱方程式の解の性質を用い�
 \end{rmk}
 
 \begin{bibdiv}
-    \begin{biblist}
+    \begin{biblist}*{labels={alphabetic}}
         \bib{BCCT}{article}{
    author={Bennett, Jonathan},
    author={Carbery, Anthony},
