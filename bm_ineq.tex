@@ -66,14 +66,12 @@
 
 \begin{document}
 
-\title{Brunn--Minkowski-type不等式と放物型方程式の解の凸性}
+\title{Brunn--Minkowski-type不等式と放物型方程式の解の凹性}
 \author{ウ}
 \date{\today}
 \maketitle
 \begin{abstract}
-    この文書は，Brunn--Minkowski，Pr\'ekopa--Leindler，そしてBorell--Brascamp--Lieb不等式の解説をするものである．これらの不等式は数学の諸分野に対して様々な応用をもち，特にGardner \cite{G}は1つめのBrunn--Minkowski不等式について次のように述べている：``In a sea of mathematics, the Brunn-Minkowski inequality appears like an octopus, tentacles reaching far and wide, its shape and color changing as it roams from one area to the next. It is quite clear that research opportunities abound.'' 
-
-    本PDFでは，主にPDEやそれに関係した関数不等式(幾何学的不等式)への応用を紹介するつもりである．主な参考文献は\cites{BL,G,ILS}である．
+    この文書は，Brunn--Minkowski，Pr\'ekopa--Leindler，そしてBorell--Brascamp--Lieb不等式の解説をするものである．主にPDEやそれに関係した関数不等式(幾何学的不等式)への応用を紹介するつもりである．主な参考文献は\cites{BL,G,ILS}である．
 \end{abstract}
 \tableofcontents
 \section*{記号}
@@ -264,9 +262,9 @@ $K\subset\Rset^n$を凸体とする．なお，ここでは$\Rset^n$内のコン
     \begin{equation}
         f(t)=\Lm^n((1-t)K+tB)^{1/n}\quad (0\leq t\leq 1)
     \end{equation}
-    とおくと\eqref{eq:bm2}より$f$はconcaveである．特に$f'(0)\geq f(1)-f(0)$が成り立つ．最初に計算した式から$f'(0)$を計算すると
+    とおくと\eqref{eq:bm2}より$f$はconcaveである．特に$f'(0)\geq f(1)-f(0)$が成り立つ．最初にやった計算より$f'(0)$を具体的に表示すると
     \begin{equation}
-        f'(0)=\frac{\Lm^n(K)^{(n-1)/n}}{n}(S(K)-n\Lm^n(K))\geq \Lm^n(B)^{1/n}-\Lm^n(K)^{1/n}
+        f'(0)=\frac{\Lm^n(K)^{(1-n)/n}}{n}(S(K)-n\Lm^n(K))\geq \Lm^n(B)^{1/n}-\Lm^n(K)^{1/n}
     \end{equation}
     を得る．これを適切に変形すると所望の不等式を得る．
 \end{proof}
@@ -528,7 +526,7 @@ Ishige--Liu--Salani \cite{ILS}は，逆に熱方程式の解の性質を用い�
 
 彼らは，放物型偏微分方程式の解析を駆使して系\ref{cor:heat_concavity}の拡張である次の定理を証明した．
 \begin{thm}\label{thm:conc_preserve}
-    $0<\lambda<1$とし，$i\in\qty{0,1,\lambda}$に対して$f_i\in L^1(\Rset^n)\cap L^\infty(\Rset^n)\cap C(\Rset^n),\ f_i\geq0$であり，
+    $0<\lambda<1$とする．$i\in\qty{0,1,\lambda}$に対して$f_i\in L^1(\Rset^n)\cap L^\infty(\Rset^n)\cap C(\Rset^n),\ f_i\geq0$であり，
     \begin{equation}
         f_\lambda((1-\lambda)y+\lambda z)\geq \M{0}{f_0(y)}{f_1(z)}{\lambda}\ (=f_0(y)^{1-\lambda}f_1(z)^{\lambda})\quad (\forall y,\,z\in\Rset^n)\label{eq:conc_preserve_assump}
     \end{equation}
@@ -552,7 +550,7 @@ Ishige--Liu--Salani \cite{ILS}は，逆に熱方程式の解の性質を用い�
     \begin{equation}
         \overline{u}_{\lambda}(x,t)\coloneqq \sup\qty{u_{0}(y,t)^{1-\lambda}u_1(z,t)^{\lambda}\mid y,z\in\Rset^n\ \text{with}\ (1-\lambda)y+\lambda z=x}
     \end{equation}
-    で定義する．$\overline{u}_{\lambda}$が熱方程式の\underline{粘性劣解}であることを示す(このステップが本質的である)．すると粘性解に対する比較原理から$\overline{u}_{\lambda}\leq u_{\lambda}$が従う．これが求める結果である．
+    で定義する．この$\overline{u}_{\lambda}$が熱方程式の\underline{粘性劣解}であることを示す(このステップが本質的である)．すると粘性解に対する比較原理から$\overline{u}_{\lambda}\leq u_{\lambda}$が従う．これが求める結果である．
 \end{proof}
 さて，$f_1,\,f_2,\,f_\lambda$を定理\ref{thm:conc_preserve}の仮定を満たすものとする．Lebesgueの優収束定理から
 \begin{equation}
