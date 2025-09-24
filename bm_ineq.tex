@@ -77,7 +77,7 @@
 \date{\today}
 \maketitle
 \begin{abstract}
-    この文書は，Brunn--Minkowski，Pr\'ekopa--Leindler，そしてBorell--Brascamp--Lieb不等式の解説をするものである．主にPDEやそれに関係した関数不等式(幾何学的不等式)への応用を紹介するつもりである．主な参考文献は\cites{BL,G,ILS}である．
+    この文書は，Brunn--Minkowski，Pr\'ekopa--Leindler，そしてBorell--Brascamp--Lieb不等式と，それらのPDEやそれに関係した関数不等式(幾何学的不等式)への応用を紹介ものである．主な参考文献は\cites{BL,G,ILS}である．
 \end{abstract}
 \tableofcontents
 \section*{記号}
@@ -153,7 +153,7 @@ Brunn--Minkowski不等式と関係の深い不等式にPr\'ekopa--Leindler不等
 \subsection{定理\ref{thm:bm1}, \ref{thm:bm2}, \ref{thm:pl}の証明}
 不等式\eqref{eq:bm1}, \eqref{eq:bm2}, \eqref{eq:pl}の証明を述べる．
 \begin{rmk}\label{rmk:gap}
-    \underline{以下の証明(特に補題\ref{lem:proof_of_pl})はいくつかのごまかし(ギャップ)を含んでいる．}いずれも集合もしくは関数の可測性にかんするギャップであり(注意\ref{rmk:measurability}を見よ)，そこにさえ目を瞑ってしまえば証明の本質的な部分を述べることは可能であるので，ここでは不正確な証明をそのまま紹介することにし，ウソ部分にはそれとわかるマーカーを置くことにする(\textcolor{red}{(ウソ)}など)．なお，完全な証明については\ref{sec:ess_bbm}を見よ．
+    \underline{以下の証明(特に補題\ref{lem:proof_of_pl})はいくつかのごまかし(ギャップ)を含んでいる．}いずれも集合もしくは関数の可測性にかんするギャップであり(注意\ref{rmk:measurability}を見よ)，そこにさえ目を瞑ってしまえば証明の本質的な部分を述べることは可能であるので，ここでは不正確な証明をそのまま紹介することにし，ウソ部分にはそれとわかるマーカーを置くことにする(\textcolor{red}{(ウソ)}など)．なお，完全な証明については\ref{sec:ess_bbl}を見よ．
 \end{rmk}
 まずは$n=1$の場合から．
 \begin{lem}\label{lem:bm2_1}
@@ -544,7 +544,7 @@ $K\subset\Rset^n$を凸体とする．なお，ここでは$\Rset^n$内のコン
 \begin{rmk}
     Brascamp--Lieb \cite{BL}は，他にも\eqref{eq:pl} (を少しだけ改良したもの)を巧みに用いることで，ポテンシャル$V$がconvexであるときにDirichlet境界条件を課した$\partial_t-\frac{1}{2}\Delta +V$の基本解がlog-concaveであることを示した．
 \end{rmk}
-\section{BBL不等式に対するPDE的アプローチ}
+\section{BBLに対するPDE的アプローチ}
 系\ref{cor:heat_concavity}は，熱方程式の解のlog-concavityが保存されるということを\eqref{eq:pl}を用いて示したものである．
 
 Ishige--Liu--Salani \cite{ILS}は，逆に熱方程式の解の性質を用いて\eqref{eq:pl}を示した．ここでは，その証明の概略を紹介する．
@@ -573,7 +573,7 @@ Ishige--Liu--Salani \cite{ILS}は，逆に熱方程式の解の性質を用い�
 \begin{proof}[Outlined proof]
     定理\ref{thm:conc_preserve}の証明の概略は次の通り(\textcolor{red}{筆者が詳細を理解できたら完全な証明に書き換えるつもりである})：$u_0$と$u_1$に対して
     \begin{equation}
-        U((1-\lambda)y+\lambda z,t)\geq u_0(y,t)^{1-\lambda}u_1(z,t)\quad (\forall y,\,z\in \Rset^n,\ t>0)
+        U((1-\lambda)y+\lambda z,t)\geq u_0(y,t)^{1-\lambda}u_1(z,t)^{\lambda}\quad (\forall y,\,z\in \Rset^n,\ t>0)
     \end{equation}
     を満たす$U$のうち最小のものを$U_{\lambda}$とする．explicitには
     \begin{equation}
@@ -597,7 +597,7 @@ Ishige--Liu--Salani \cite{ILS}は，逆に熱方程式の解の性質を用い�
     \end{equation}
     を得る．これは\eqref{eq:pl}に他ならない．
 
-    なお，定理\ref{thm:conc_preserve}には初期値に連続かつ有界な関数という余分な仮定が付いてはいるものの，適当な近似を用いた議論により完全に定理\ref{thm:pl}が復元することができる．
+    なお，定理\ref{thm:conc_preserve}には初期値に連続かつ有界な関数という余分な仮定が付いてはいるものの，適当な近似を用いた議論により完全に定理\ref{thm:pl}を復元することができる．
 \end{proof}
 \begin{rmk}
     上では簡単のため\eqref{eq:pl} ($\alpha=0$の場合)のみを扱ったが，\cite{ILS}では同様の議論により$-1/2<\alpha<0$に対する結果を得ている．その際には熱方程式の代わりに非線形放物型方程式
@@ -606,11 +606,11 @@ Ishige--Liu--Salani \cite{ILS}は，逆に熱方程式の解の性質を用い�
     \end{equation}
     を考え，定理\ref{thm:conc_preserve}と同様の主張を証明することで$\alpha$に対する\eqref{eq:bbl}を導出している．
 
-    なお，方程式\eqref{eq:pme}は$0<m<1$のときfast diffusion方程式というが，有限時間で解が消滅するextinctionと呼ばれる現象が起こるため$m=1$ (つまり$\alpha=0$)の場合と比べてより繊細な解析が必要となる．
+    なお，方程式\eqref{eq:pme}は$0<m<1$のときfast diffusion方程式と呼ばれるが，有限時間で解が消滅するextinctionと呼ばれる現象が起こるため$m=1$ (つまり$\alpha=0$)の場合と比べてより繊細な解析が必要となる．
 \end{rmk}
 
 \appendix
-\section{BBM不等式のessential version；PL, BBLの完全な証明}\label{sec:ess_bbm}
+\section{BBLのessential version；PL, BBLの完全な証明}\label{sec:ess_bbl}
 \def\thesection{\Alph{section}}
 ここでは定理\ref{thm:pl}, \ref{thm:bbl}の完全な証明を与える．先に示した証明では関数や集合の可測性が問題になったので，零集合上の変更に対してrobustになるように主張を書き換える．
 
@@ -693,14 +693,14 @@ $X,\,Y\subset\Rset^n$に対してMinkowski和は
     が成り立つ．
 \end{lem}
 \begin{proof}
-    $n$に関する帰納法である．補題\ref{lem:bm2_1}と命題\ref{prop:density1}より$n=1$のとき\eqref{eq:ess_bm}は正しい．$h_{-\infty}(f,g;\,\lambda)$の定義より
+    補題\ref{lem:bm2_1}と命題\ref{prop:density1}より$n=1$のとき\eqref{eq:ess_bm}は正しい．$h_{-\infty}(f,g;\,\lambda)$の定義より
     \begin{equation}
         \qty{h_{-\infty}(f,g;\,\lambda)\geq t}\supset (1-\lambda)\qty{f\geq t}+_e \lambda\qty{g\geq t}\quad (\forall t\geq0)
     \end{equation}
     であるから，補題\ref{lem:bbl_1}と同様にやればよい．
 \end{proof}
 \begin{proof}[Proof of \textup{定理\ref{thm:ess_bbl}}]
-    あとは定理\ref{thm:bbl}の証明と同様である．
+    あとは定理\ref{thm:bbl}の証明と同様で$n$に関する帰納法による．
 \end{proof}
 
 
@@ -736,6 +736,18 @@ $X,\,Y\subset\Rset^n$に対してMinkowski和は
    issn={0022-1236},
    review={\MR{0450480}},
    doi={10.1016/0022-1236(76)90004-5},
+}
+\bib{B}{article}{
+   author={Borell, C.},
+   title={Convex set functions in $d$-space},
+   journal={Period. Math. Hungar.},
+   volume={6},
+   date={1975},
+   number={2},
+   pages={111--136},
+   issn={0031-5303},
+   review={\MR{0404559}},
+   doi={10.1007/BF02018814},
 }
 \bib{ES}{article}{
    author={Erd\H os, P.},
