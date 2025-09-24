@@ -2,9 +2,9 @@
 \usepackage{bookmark}
 \hypersetup{
 	colorlinks=true,
-	citecolor=blue,
+	citecolor=teal,
 	linkcolor=blue,
-	urlcolor=blue,
+	urlcolor=violet,
 }
 % 数式
 \usepackage{luatexja}
@@ -128,7 +128,10 @@ Brunn--Minkowski不等式の主張を述べる．
     が成り立つ．
 \end{thm}
 \begin{rmk}
-    $X,\,Y$が可測であっても$X+Y$が可測であるとは限らない(\cite{S},\cite{ES}を見よ)．
+    \begin{itemize}
+        \item Youngの不等式より明らかに，\eqref{eq:bm2}を認めれば\eqref{eq:bm1}は正しい．
+        \item $X,\,Y$が可測であっても$X+Y$が可測であるとは限らない(\cite{S},\cite{ES}を見よ)．
+    \end{itemize}
 \end{rmk}
 Brunn--Minkowski不等式と関係の深い不等式にPr\'ekopa--Leindler不等式がある：
 \begin{thm}[Pr\'ekopa--Leindler不等式]\label{thm:pl}
@@ -245,7 +248,7 @@ $K\subset\Rset^n$を凸体とする．なお，ここでは$\Rset^n$内のコン
 と定義する．なおここで$B=B_{1}(0)$は単位球である．
 \begin{rmk}
     \begin{itemize}
-        \item 混合体積に対するMinkowskiの定理より，$\Lm^n(K+\varepsilon B)$は$\varepsilon$に関する$n$次式となる．特に\eqref{eq:surface_area}式の極限は収束する．
+        \item 混合体積に対するMinkowskiの定理(\cite{Sch}を見よ)より，$\Lm^n(K+\varepsilon B)$は$\varepsilon$に関する$n$次式となる．特に\eqref{eq:surface_area}式の極限は収束する．
         \item 更に境界$\partial K$が十分滑らかならば($C^1$級なら十分)，$S(K)=\Hm^{n-1}(\partial K)$が成り立つ．余面積公式(coarea formula)による．
     \end{itemize}
 \end{rmk}
@@ -550,28 +553,35 @@ Ishige--Liu--Salani \cite{ILS}は，逆に熱方程式の解の性質を用い�
     \end{equation}
     が成り立つ．
 \end{thm}
-\begin{proof}[\textup{証明の概略}]
-    定理\ref{thm:conc_preserve}の証明の概略は次の通り(\textcolor{red}{筆者が詳細を理解できたら完全な証明に書き換えるつもりである})：$u_0$と$u_1$の空間に関するMinkowski convolutionを
+\begin{proof}[Outlined proof]
+    定理\ref{thm:conc_preserve}の証明の概略は次の通り(\textcolor{red}{筆者が詳細を理解できたら完全な証明に書き換えるつもりである})：$u_0$と$u_1$に対して
     \begin{equation}
-        \overline{u}_{\lambda}(x,t)\coloneqq \sup\qty{u_{0}(y,t)^{1-\lambda}u_1(z,t)^{\lambda}\mid y,z\in\Rset^n\ \text{with}\ (1-\lambda)y+\lambda z=x}
+        U((1-\lambda)y+\lambda z,t)\geq u_0(y,t)^{1-\lambda}u_1(z,t)\quad (\forall y,\,z\in \Rset^n,\ t>0)
     \end{equation}
-    で定義する．この$\overline{u}_{\lambda}$が熱方程式の\underline{粘性劣解}であることを示す(このステップが本質的である)．すると粘性解に対する比較原理から$\overline{u}_{\lambda}\leq u_{\lambda}$が従う．これが求める結果である．
+    を満たす$U$のうち最小のものを$U_{\lambda}$とする．explicitには
+    \begin{equation}
+        U_{\lambda}(x,t)\coloneqq \sup\qty{u_{0}(y,t)^{1-\lambda}u_1(z,t)^{\lambda}\mid y,z\in\Rset^n\ \text{with}\ (1-\lambda)y+\lambda z=x}
+    \end{equation}
+    である($U_{\lambda}$を$u_0,\,u_1$のspatial Minkowski convolutionという)．この$U_{\lambda}$が熱方程式の\underline{粘性劣解}であることを示す(このステップが本質的である)．すると粘性解に対する比較原理から$U_{\lambda}\leq u_{\lambda}$が従う．これが求める結果である．
 \end{proof}
-さて，$f_1,\,f_2,\,f_\lambda$を定理\ref{thm:conc_preserve}の仮定を満たすものとする．Lebesgueの優収束定理から
-\begin{equation}
-    \lim_{t\to\infty}(4\pi t)^{n/2}u_i(x,t)=\int_{\Rset^n}f_i(y)\,dy\quad (\forall x\in\Rset^n,\ i\in\qty{0,1,\lambda})
-\end{equation}
-である．定理\ref{thm:conc_preserve}より勝手な$x\in\Rset^n$に対して
-\begin{equation}
-    (4\pi t)^{n/2}u_{\lambda}(x,t)\geq [(4\pi t)^{n/2}u_0(x,t)]^{1-\lambda}[(4\pi t)^{n/2} u_1(x,t)]^{\lambda}
-\end{equation}
-が成り立つので，$t\to\infty$として
-\begin{equation}
-    \int_{\Rset^n}f_\lambda\,dx\geq \qty(\int_{\Rset^n}f_0\,dx)^{1-\lambda}\qty(\int_{\Rset^n}f_1\,dx)^{\lambda}
-\end{equation}
-を得る．これは\eqref{eq:pl}に他ならない．
+定理\ref{thm:conc_preserve}を用いて\eqref{eq:pl}を証明することができる．
+\begin{proof}[PDE-based proof of \eqref{eq:pl}]
+    $f_1,\,f_2,\,f_\lambda$を定理\ref{thm:conc_preserve}の仮定を満たすものとする．Lebesgueの優収束定理から
+    \begin{equation}
+        \lim_{t\to\infty}(4\pi t)^{n/2}u_i(x,t)=\int_{\Rset^n}f_i(y)\,dy\quad (\forall x\in\Rset^n,\ i\in\qty{0,1,\lambda})
+    \end{equation}
+    である．定理\ref{thm:conc_preserve}より勝手な$x\in\Rset^n$に対して
+    \begin{equation}
+        (4\pi t)^{n/2}u_{\lambda}(x,t)\geq [(4\pi t)^{n/2}u_0(x,t)]^{1-\lambda}[(4\pi t)^{n/2} u_1(x,t)]^{\lambda}
+    \end{equation}
+    が成り立つので，$t\to\infty$として
+    \begin{equation}
+        \int_{\Rset^n}f_\lambda\,dx\geq \qty(\int_{\Rset^n}f_0\,dx)^{1-\lambda}\qty(\int_{\Rset^n}f_1\,dx)^{\lambda}
+    \end{equation}
+    を得る．これは\eqref{eq:pl}に他ならない．
 
-なお，定理\ref{thm:conc_preserve}には初期値に連続かつ有界な関数という余分な仮定が付いてはいるものの，適当な近似を用いた議論により完全に定理\ref{thm:pl}が復元することができる．
+    なお，定理\ref{thm:conc_preserve}には初期値に連続かつ有界な関数という余分な仮定が付いてはいるものの，適当な近似を用いた議論により完全に定理\ref{thm:pl}が復元することができる．
+\end{proof}
 \begin{rmk}
     上では簡単のため\eqref{eq:pl} ($\alpha=0$の場合)のみを扱ったが，\cite{ILS}では同様の議論により$-1/2<\alpha<0$に対する結果を得ている．その際には熱方程式の代わりに非線形放物型方程式
     \begin{equation}
@@ -693,6 +703,18 @@ Ishige--Liu--Salani \cite{ILS}は，逆に熱方程式の解の性質を用い�
    issn={0022-2518},
    review={\MR{0703287}},
    doi={10.1512/iumj.1983.32.32042},
+}
+\bib{Sch}{book}{
+   author={Schneider, Rolf},
+   title={Convex bodies: the Brunn-Minkowski theory},
+   series={Encyclopedia of Mathematics and its Applications},
+   volume={151},
+   edition={expanded edition},
+   publisher={Cambridge University Press, Cambridge},
+   date={2014},
+   pages={xxii+736},
+   isbn={978-1-107-60101-7},
+   review={\MR{3155183}},
 }
 \bib{S}{article}{
     author={Sierpi\'nski, Wacław Franciszek},
