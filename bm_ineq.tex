@@ -115,16 +115,16 @@ $X,\,Y\subset \Rset^n$に対してこれらの\textbf{Minkowski和}$X+Y$が
 \subsection{Brunn--Minkowski不等式，Pr\'ekopa--Leindler不等式}
 Brunn--Minkowski不等式の主張を述べる．
 \begin{thm}[Brunn--Minkowski不等式；first form]\label{thm:bm1}
-    $0<\lambda<1$とし，$X,\,Y\in \Rset^n$は可測集合で$(1-\lambda)X+\lambda Y$も可測であるようなものとする．このとき
+    $0<\lambda<1$とし，$X,\,Y,\,Z\subset \Rset^n$は可測集合で$Z\supset(1-\lambda)X+\lambda Y$を満たすものとする．このとき
     \begin{equation}
-        \Lm^n((1-\lambda)X+\lambda Y)\geq \Lm^n(X)^{1-\lambda}\Lm^n(Y)^{\lambda}\label{eq:bm1}\tag{BM1}
+        \Lm^n(Z)\geq \Lm^n(X)^{1-\lambda}\Lm^n(Y)^{\lambda}\label{eq:bm1}\tag{BM1}
     \end{equation}
     が成り立つ．
 \end{thm}
 \begin{thm}[Brunn--Minkowski不等式；standard form]\label{thm:bm2}
-    $0<\lambda<1$とし，$X,\,Y\in \Rset^n$は\underline{空でない}可測集合で$(1-\lambda)X+\lambda Y$も可測であるようなものとする．このとき不等式
+    $0<\lambda<1$とし，$X,\,Y,\,Z\subset \Rset^n$は\underline{空でない}可測集合で$Z\supset(1-\lambda)X+\lambda Y$を満たすものとする．このとき不等式
     \begin{equation}
-        \Lm^n((1-\lambda)X+\lambda Y)^{1/n}\geq (1-\lambda)\Lm^n(X)^{1/n}+\lambda \Lm^n(Y)^{1/n}\label{eq:bm2}\tag{BM2}
+        \Lm^n(Z)^{1/n}\geq (1-\lambda)\Lm^n(X)^{1/n}+\lambda \Lm^n(Y)^{1/n}\label{eq:bm2}\tag{BM2}
     \end{equation}
     が成り立つ．
 \end{thm}
@@ -153,7 +153,9 @@ Brunn--Minkowski不等式と関係の深い不等式にPr\'ekopa--Leindler不等
 \subsection{定理\ref{thm:bm1}, \ref{thm:bm2}, \ref{thm:pl}の証明}
 不等式\eqref{eq:bm1}, \eqref{eq:bm2}, \eqref{eq:pl}の証明を述べる．
 \begin{rmk}\label{rmk:gap}
-    \underline{以下の証明(特に補題\ref{lem:proof_of_pl})はいくつかのごまかし(ギャップ)を含んでいる．}いずれも集合もしくは関数の可測性にかんするギャップであり(注意\ref{rmk:measurability}を見よ)，そこにさえ目を瞑ってしまえば証明の本質的な部分を述べることは可能であるので，ここでは不正確な証明をそのまま紹介することにし，ウソ部分にはそれとわかるマーカーを置くことにする(\textcolor{red}{(ウソ)}など)．なお，完全な証明については\ref{sec:ess_bbl}を見よ．
+    \underline{以下の証明(具体的には補題\ref{lem:proof_of_pl})は1つだけごまかし(ギャップ)を含んでいる}が，ここでは次の理由によって完全ではない証明を紹介する：・関数の可測性にかんするギャップであり(注意\ref{rmk:measurability}を見よ)，はっきり言って非本質的である・証明を修正しようとすると(少なくとも筆者が検討した限り)仮定を弱めるか定理のreformulationが必要となり，労力を要する．
+    
+    なお，完全な証明については\ref{sec:ess_bbl}を見よ．
 \end{rmk}
 まずは$n=1$の場合から．
 \begin{lem}\label{lem:bm2_1}
@@ -164,9 +166,9 @@ Brunn--Minkowski不等式と関係の深い不等式にPr\'ekopa--Leindler不等
     \begin{equation}
         X\subset (-\infty,0],\quad Y\subset [0,\infty)\quad \text{and}\quad X\cap Y=\qty{0}
     \end{equation}
-    としてよく，よって$X+Y\supset X\cup Y$であるため
+    としてよく，よって$Z\supset X+Y\supset X\cup Y$であるため
     \begin{equation}
-        \Lm^1(X+Y)\geq \Lm^1(X\cup Y)=\Lm^1(X)+\Lm^1(Y)
+        \Lm^1(Z)\geq \Lm^1(X\cup Y)=\Lm^1(X)+\Lm^1(Y)
     \end{equation}
     を得る．$0<\lambda<1$に対して，$X$を$(1-\lambda)X$で，$Y$を$\lambda Y$で置き換えることで所望の不等式を得る．
 \end{proof}
@@ -194,12 +196,10 @@ Brunn--Minkowski不等式と関係の深い不等式にPr\'ekopa--Leindler不等
     \end{equation}
     である．両辺を$(0,1)$上積分して\eqref{eq:bm2}を適用すれば
     \begin{align}
-        \int_{\Rset}h\,dx=\int_{0}^{\infty}\Lm^1(\qty{h\geq t})\,dt&\geq \int_{0}^{\infty}\Lm^1((1-\lambda)\qty{f\geq t}+\lambda \qty{g\geq t})\,dt\\
-        &\geq \int_{0}^{\infty}\qty((1-\lambda)\Lm^1(\qty{f\geq t})+\lambda \Lm^1(\qty{g\geq t}))\,dt\quad \text{\textcolor{red}{(ウソ)}\footnotemark{}}\\
+        \int_{\Rset}h\,dx=\int_{0}^{\infty}\Lm^1(\qty{h\geq t})\,dt&\geq \int_{0}^{\infty}\qty((1-\lambda)\Lm^1(\qty{f\geq t})+\lambda \Lm^1(\qty{g\geq t}))\,dt\\
         &=(1-\lambda)\int_{\Rset}f\,dx+\lambda\int_{\Rset}g\,dx\\
         &\geq \qty(\int_{\Rset}f\,dx)^{1-\lambda}\qty(\int_{\Rset}g\,dx)^{\lambda}
     \end{align}
-    \footnotetext{集合$(1-\lambda)\qty{f\geq t}+\lambda \qty{g\geq t}$が可測であるかわからない．}
     を得る．これは\eqref{eq:pl}に他ならない．
 
     一般の場合は$F=f/\norm{f}_{\infty},\ G=g/\norm{g}_{\infty},\ H=h/(\norm{f}_{\infty}^{1-\lambda}\norm{g}_{\infty}^{\lambda})$とおけば上の議論に帰着する．
@@ -444,7 +444,7 @@ $K\subset\Rset^n$を凸体とする．なお，ここでは$\Rset^n$内のコン
     \begin{equation}
         \Lm^1(\qty{h\geq t})\geq (1-\lambda)\Lm^1(\qty{f\geq t})+\lambda \Lm^1(\qty{g\geq t})
     \end{equation}
-    が成り立つ\textcolor{red}{(ここでも可測性の問題が生じる)}．両辺を$(0,m)$上積分して所望の不等式を得る．
+    が成り立つ．両辺を$(0,m)$上積分して所望の不等式を得る．
 \end{proof}
 \begin{proof}[Proof of \textup{定理\ref{thm:bbl}}]
     $n$に関する帰納法による．まず$n=1$の場合を考える．$\norm{f}_1,\,\norm{g}_1>0$かつ$f,\,g$は有界としてよい．
@@ -473,7 +473,7 @@ $K\subset\Rset^n$を凸体とする．なお，ここでは$\Rset^n$内のコン
     \end{equation}
     を得る．なお最後の不等式で補題\ref{lem:ave_ineq}を用いた．
 
-    $n\geq 1$の場合は，補題\ref{lem:proof_of_pl}と同様に帰納法で示される．
+    $n\geq 1$の場合は，補題\ref{lem:proof_of_pl}と同様に帰納法で示される(\textcolor{red}{ここでも同様に可測性の問題が生じる})．
 \end{proof}
 \subsection{応用：熱方程式の解のconcavity}
 \eqref{eq:bbl}の応用先は多岐にわたる．例えば，確率・統計，幾何学的不等式，調和解析，偏微分方程式論etc., とにかく厖大な結果がある．ここでは積分核のmarginalで表される関数のべき凸性，およびその系として放物型偏微分方程式の解のconcavityに関して議論する．
@@ -543,6 +543,9 @@ $K\subset\Rset^n$を凸体とする．なお，ここでは$\Rset^n$内のコン
 \end{rmk}
 \begin{rmk}
     Brascamp--Lieb \cite{BL}は，他にも\eqref{eq:pl} (を少しだけ改良したもの)を巧みに用いることで，ポテンシャル$V$がconvexであるときにDirichlet境界条件を課した$\partial_t-\frac{1}{2}\Delta +V$の基本解がlog-concaveであることを示した．
+\end{rmk}
+\begin{rmk}
+    Ishige--Salani--Takatsu \cite{IST}は，log-concavityより強いconcavityである``$-\sqrt{-\log}$-concavity''が保存されることを示した．
 \end{rmk}
 \section{BBLに対するPDE的アプローチ}
 系\ref{cor:heat_concavity}は，熱方程式の解のlog-concavityが保存されるということを\eqref{eq:pl}を用いて示したものである．
@@ -814,6 +817,20 @@ $X,\,Y\subset\Rset^n$に対してMinkowski和は
    issn={0025-5831},
    review={\MR{4958493}},
    doi={10.1007/s00208-025-03206-6},
+}
+\bib{IST}{article}{
+   author={Ishige, Kazuhiro},
+   author={Salani, Paolo},
+   author={Takatsu, Asuka},
+   title={To logconcavity and beyond},
+   journal={Commun. Contemp. Math.},
+   volume={22},
+   date={2020},
+   number={2},
+   pages={1950009, 17},
+   issn={0219-1997},
+   review={\MR{4077093}},
+   doi={10.1142/S0219199719500093},
 }
 \bib{K}{article}{
    author={Korevaar, Nicholas J.},
