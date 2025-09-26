@@ -85,6 +85,7 @@
     \item $\Lm^n$：$\Rset^n$上のLebesgue測度．しばしば$dx=d\Lm^n,\ \abs{E}=\Lm^n(E)$．
     \item $\Hm^s\ (s\geq0)$：$\Rset^n$上の$s$次元Hausdorff測度．
     \item $B_R(x_0)\coloneqq \qty{x\in \Rset^n \mid \abs{x-x_0}<R}$.
+    \item $\omega_n\coloneqq\Lm^n(B_1(0))=\pi^{n/2}/\Gamma\qty(\frac{n}{2}+1)$. このとき$\Hm^{n-1}(\partial B_1(0))=n\omega_n$. 
     \item $\1_E\ (E\subset \Rset^n)$：集合$E$の特性関数．
 \end{itemize}
 \section{Brunn--Minkowski不等式とPr\'ekopa--Leindler不等式}
@@ -162,7 +163,7 @@ Brunn--Minkowski不等式と関係の深い不等式にPr\'ekopa--Leindler不等
     \eqref{eq:bm2}は$n=1$のとき正しい．
 \end{lem}
 \begin{proof}
-    Lebesgue測度の正則性から$X,Y$はコンパクトであるとしてよい．このとき$X+Y$もコンパクトである．必要なら平行移動して
+    まず$Z\supset X+Y$ならば$\Lm^n(Z)\geq \Lm^n(X)+\Lm^n(Y)$であることを示す．Lebesgue測度の正則性から$X,Y$はコンパクトであるとしてよい．このとき$X+Y$もコンパクトである．必要なら平行移動して
     \begin{equation}
         X\subset (-\infty,0],\quad Y\subset [0,\infty)\quad \text{and}\quad X\cap Y=\qty{0}
     \end{equation}
@@ -374,7 +375,7 @@ $K\subset\Rset^n$を凸体とする．なお，ここでは$\Rset^n$内のコン
                 \text{$f$は$P_f$上定数} & (\text{if $p=\infty$})\\
                 \text{$f^p$は$P_f$上concave} & (\text{if $p\in(0,\infty)$})\\
                 \text{$\log f$は$P_f$上concave} & (\text{if $p=0$})\\
-                \text{$f^p$は$P_f$上concave} & (\text{if $p\in(-\infty,0)$})\\
+                \text{$f^p$は$P_f$上convex} & (\text{if $p\in(-\infty,0)$})\\
                 \text{任意の$\alpha>0$に対して集合$\qty{f>\alpha}$はconvex} & (\text{if $p=-\infty$})\\
             \end{cases}
         \end{equation}
@@ -657,7 +658,7 @@ $X,\,Y\subset\Rset^n$に対してMinkowski和は
     が成り立つ．
 \end{thm}
 \begin{thm}[essential BBL]\label{thm:ess_bbl}
-    $0<\lambda<1,\ p\geq -1/n$とする．$f,\,g,\colon\Rset^n\to[0,\infty)$が可積分関数のとき，
+    $0<\lambda<1,\ p\geq -1/n$とする．$f,\,g\colon\Rset^n\to[0,\infty)$が可積分関数のとき，
     \begin{equation}
         \norm{h_{p}(f,g;\,\lambda)}_{1}\geq \M{p/(1+np)}{\norm{f}_{1}}{\norm{g}_{1}}{\lambda}\label{eq:ess_bbl}\tag{EssBBL}
     \end{equation}
