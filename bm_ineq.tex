@@ -237,20 +237,20 @@ Brunn--Minkowski不等式と関係の深い不等式にPr\'ekopa--Leindler不等
     $n\geq 1$のとき，\eqref{eq:pl}を認めれば\eqref{eq:bm1}は正しい．
 \end{lem}
 \begin{proof}
-    $f=\1_{X},\ g=\1_{Y},\ h=\1_{(1-\lambda)X+\lambda Y}$とおけばよい．
+    $f=\1_{X},\ g=\1_{Y},\ h=\1_{Z}$とおけばよい．
 \end{proof}
 \begin{lem}\label{lem:bm1_implies_bm2}
     \eqref{eq:bm1}を認めれば\eqref{eq:bm2}は正しい．
 \end{lem}
 \begin{proof}
-    $X$または$Y$が零集合なら自明なので，$\Lm^n(X)>0,\ \Lm^n(Y)>0$としてよい．適当にスケーリングして$\Lm^n(X+Y)^{1/n}\geq \Lm^n(X)^{1/n}+\Lm^n(Y)^{1/n}$を示せばよい．
+    $X$または$Y$が零集合なら自明なので，$\Lm^n(X)>0,\ \Lm^n(Y)>0$としてよい．適当にスケーリングすると，$Z\supset X+Y$のとき$\Lm^n(Z)^{1/n}\geq \Lm^n(X)^{1/n}+\Lm^n(Y)^{1/n}$であること示せばよいがわかる．
     \begin{equation}
         \lambda'\coloneqq \frac{\Lm^n(Y)^{1/n}}{\Lm^n(X)^{1/n}+\Lm^n(Y)^{1/n}},
     \end{equation}
     \begin{equation}
-        X'\coloneqq \Lm^n(X)^{-1/n}X,\quad Y'\coloneqq \Lm^n(Y)^{-1/n}Y
+        X'\coloneqq \Lm^n(X)^{-1/n}X,\quad Y'\coloneqq \Lm^n(Y)^{-1/n}Y,\quad Z'\coloneqq \frac{Z}{\Lm^n(X)^{1/n}+\Lm^n(Y)^{1/n}}
     \end{equation}
-    とおくと\eqref{eq:bm1}より$\Lm^n((1-\lambda')X'+\lambda'Y')\geq1$を得る．左辺を変形すると\eqref{eq:bm2}を得る．
+    とおくと\eqref{eq:bm1}より$\Lm^n(Z)\geq1$を得る．左辺を変形すると\eqref{eq:bm2}を得る．
 \end{proof}
 
 \section{BMの応用：等周不等式とSobolev不等式}
@@ -327,7 +327,7 @@ $K\subset\Rset^n$を凸体とする．なお，ここでは$\Rset^n$内のコン
 \begin{proof}
     $f\in C^\infty_c(\Rset^n),\ f\geq0$としてよい．layer-cake representationより
     \begin{align}
-        \int_{\Rset^n}f^{n/(n-1)}\,dx&=\frac{n}{n-1}\int_{0}^{\infty}t^{n/(n-1)}\Lm^n(\qty{f\geq t})\,dt\\
+        \int_{\Rset^n}f^{n/(n-1)}\,dx&=\frac{n}{n-1}\int_{0}^{\infty}t^{1/(n-1)}\Lm^n(\qty{f\geq t})\,dt\\
         &=\frac{n}{n-1}\int_{0}^{\infty}\Lm^n(\qty{f\geq t})^{(n-1)/n}\qty[t\Lm^n(\qty{f\geq t})^{(n-1)/n}]^{1/(n-1)}dt\\
         &\leq \frac{n}{n-1}\int_{0}^{\infty}\Lm^n(\qty{f\geq t})^{(n-1)/n}\qty[\int_{0}^{t}\Lm^n(\qty{f\geq s})^{(n-1)/n}\,ds]^{1/(n-1)}dt
     \end{align}
@@ -479,7 +479,7 @@ $K\subset\Rset^n$を凸体とする．なお，ここでは$\Rset^n$内のコン
 \subsection{応用：熱方程式の解のconcavity}
 \eqref{eq:bbl}の応用先は多岐にわたる．例えば，確率・統計，幾何学的不等式，調和解析，偏微分方程式論etc., とにかく厖大な結果がある．ここでは積分核のmarginalで表される関数のべき凸性，およびその系として放物型偏微分方程式の解のconcavityに関して議論する．
 \begin{cor}\label{cor:marginal_concavity}
-    非負値可積分関数$K=K(x,y)\colon \Rset^m\times \Rset^n\to [0,\infty)$は$\Rset^{m+n}$上$p$-concaveで$p\geq -1/n$とする．このとき
+    \underline{連続な}非負値可積分関数$K=K(x,y)\colon \Rset^m\times \Rset^n\to [0,\infty)$は$\Rset^{m+n}$上$p$-concaveで$p\geq -1/n$とする\footnote{$K$の連続性の仮定は実は除ける．その際，$p$-concavityの定義を弱める必要がある．\ref{sec:ess_bbl}を参照．}．このとき
     \begin{equation}
         F(x)\coloneqq \int_{\Rset^n}K(x,y)\,dy\quad (x\in\Rset^m)
     \end{equation}
@@ -514,7 +514,7 @@ $K\subset\Rset^n$を凸体とする．なお，ここでは$\Rset^n$内のコン
     \end{equation}
     とおいたとき$p\geq -1/n$だと仮定する．
 
-    $i=1,\,2$に対して非負値可積分関数$f_i\colon \Rset^n\to[0,\infty)$は$p_i$-concaveだとする．このとき$f_1\ast f_2$は$p/(1+np)$-concaveである．
+    $i=1,\,2$に対して\underline{連続な}非負値可積分関数$f_i\colon \Rset^n\to[0,\infty)$は$p_i$-concaveだとする\footnote{系\ref{cor:marginal_concavity}と同様に$f_i$の連続性は不要．}．このとき$f_1\ast f_2$は$p/(1+np)$-concaveである．
 \end{cor}
 \begin{proof}
     $f(x,y)=f_1(x-y)f_2(y)\ ((x,y)\in \Rset^n\times\Rset^n)$は$p$-concaveである．実際
@@ -526,7 +526,7 @@ $K\subset\Rset^n$を凸体とする．なお，ここでは$\Rset^n$内のコン
     である(補題\ref{lem:ave_ineq}を用いた)．系\ref{cor:marginal_concavity}より結論が得られる．
 \end{proof}
 \begin{cor}\label{cor:heat_concavity}
-    非負値可積分関数$f\colon \Rset^n\to[0,\infty)$がlog-concaveならば，熱方程式の初期値問題
+    \underline{連続な}非負値可積分関数$f\colon \Rset^n\to[0,\infty)$がlog-concaveだとする\footnote{$f$の連続性は不要．}．このとき，熱方程式の初期値問題
     \begin{equation}
         \left\{
         \begin{array}{rl}
@@ -543,7 +543,7 @@ $K\subset\Rset^n$を凸体とする．なお，ここでは$\Rset^n$内のコン
     Korevaar \cite{K}は，concavity maximium principleと呼ばれる新しい手法を確立することでDirichlet境界条件下において同様のlog-concavity保存の結果を得た．
 \end{rmk}
 \begin{rmk}
-    Brascamp--Lieb \cite{BL}は，他にも\eqref{eq:pl} (を少しだけ改良したもの)を巧みに用いることで，ポテンシャル$V$がconvexであるときにDirichlet境界条件を課した$\partial_t-\frac{1}{2}\Delta +V$の基本解がlog-concaveであることを示した．
+    Brascamp--Lieb \cite{BL}は，他にも\eqref{eq:pl}を用いることで，ポテンシャル$V$がconvexであるときにDirichlet境界条件を課した$\partial_t-\frac{1}{2}\Delta +V$の基本解がlog-concaveであることを示した．
 \end{rmk}
 \begin{rmk}
     Ishige--Salani--Takatsu \cite{IST}は，log-concavityより強いconcavityである``$-\sqrt{-\log}$-concavity''が保存されることを示した．
